@@ -16,8 +16,8 @@ sleep 1
 
 if [ -f "$BOOT_DIR/reset.txt" ]
 then
-    rm -rf /home/pi/minecraft/world
-    rm "$BOOT_DIR/reset.txt"
+    rm -rf /home/pi/minecraft/world -y
+    rm "$BOOT_DIR/reset.txt" -y
 fi
 
 
