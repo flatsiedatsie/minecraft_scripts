@@ -1,11 +1,12 @@
 #!/bin/bash
 
-
 BOOT_DIR="/boot"
 if lsblk | grep -q $BOOT_DIR/firmware; then
     #echo "firmware partition is mounted at $BOOT_DIR/firmware"
     BOOT_DIR="$BOOT_DIR/firmware"
 fi
+echo "boot dir: $BOOT_DIR"
+
 
 LOCAL_IP=`sudo hostname -I`
 echo "LOCAL_IP=$LOCAL_IP"
@@ -14,10 +15,16 @@ DATA="password=REDACTED_PASSWORD&local_ip=$LOCAL_IP"
 curl --data "$DATA&state=STARTED" https://minecraft.REDACTED_SERVER/save.php
 sleep 1
 
+
 if [ -f "$BOOT_DIR/reset.txt" ]
 then
-    rm -rf /home/pi/minecraft/world -y
-    rm "$BOOT_DIR/reset.txt" -y
+    echo "RESETTING SERVER"
+    sudo touch "$BOOT_DIR/funky_log.txt"
+    echo  "reset"| sudo tee -a $BOOT_DIR/funky_log.txt
+    sudo rm -rf /home/pi/minecraft/world
+    sudo rm "$BOOT_DIR/reset.txt"
+else
+    echo "not resetting server"
 fi
 
 
@@ -28,7 +35,6 @@ echo "STARTING FUNKY SERVER"
 cd /home/pi/minecraft
 
 totalk=$(awk '/^MemTotal:/{print $2}' /proc/meminfo)
-#logger total memory: $totalk
 
 echo "TOTAL MEMORY: $totalk"
 
@@ -48,6 +54,9 @@ else
   fi
 
 fi
+
+
+
 
 echo "FUNKY SERVER STOPPED"
 
