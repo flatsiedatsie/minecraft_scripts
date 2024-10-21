@@ -37,14 +37,16 @@ then
    echo "LOW MEMORY"
    java -Xms512M -Xmx1008M -jar /home/pi/minecraft/server.jar nogui
 else
+
   if [ "$totalk" -lt 2500000 ]
   then
    echo "MEDIUM  MEMORY"
    java -Xms512M -Xmx1512M -jar /home/pi/minecraft/server.jar nogui
   else
    echo "HIGH MEMORY"
-   java -Xms2048M -Xmx5040M -jar /home/pi/minecraft/server.jar nogui
+   java -Xms1024M -Xmx3024M -jar /home/pi/minecraft/server.jar nogui
   fi
+
 fi
 
 echo "FUNKY SERVER STOPPED"
