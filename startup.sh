@@ -45,8 +45,6 @@ else
    echo "HIGH MEMORY"
    java -Xms2048M -Xmx5040M -jar /home/pi/minecraft/server.jar nogui
   fi
-   echo "HIGH MEMORY"
-   java -Xms1024M -Xmx4032M -jar /home/pi/minecraft/server.jar nogui
 fi
 
 echo "FUNKY SERVER STOPPED"
